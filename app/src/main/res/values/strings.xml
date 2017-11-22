@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Prototype</string>
+    <string name="inspection_image">Inspection Image</string>
+    <string name="no_damages">No Damages</string>
+    <string name="done">Done</string>
+    <string name="report_more_damages">Report more damages</string>
+    <string name="submit_and_go"><![CDATA[Submit & Go]]></string>
+    <string name="inspect_title">Inspect the %1$s. Tap a car part to report damage.</string>
+    <string name="damage_title">Damage on %1$s %2$s</string>
+    <string name="damage_qna_title">Select issues with the %1$s</string>
+    <string name="confirm_the_damages">Confirm the damages to avoid unwanted charges</string>
+</resources>
