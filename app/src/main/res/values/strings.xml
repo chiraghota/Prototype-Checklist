@@ -9,4 +9,10 @@
     <string name="damage_title">Damage on %1$s %2$s</string>
     <string name="damage_qna_title">Select issues with the %1$s</string>
     <string name="confirm_the_damages">Confirm the damages to avoid unwanted charges</string>
+    <string name="front_section">Front Section</string>
+    <string name="rear_section">Rear Section</string>
+    <string name="driver_section">Driver side Section</string>
+    <string name="passenger_section">Passenger side Section</string>
+    <string name="select_a_section">Select a Section</string>
+    <string name="checklist">Checklist</string>
 </resources>

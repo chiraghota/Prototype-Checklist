@@ -1,66 +1,69 @@
 package com.zoomcar.prototype;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
+import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
-import android.widget.FrameLayout;
 import android.widget.TextView;
-
-import com.zoomcar.prototype.fragments.DamageSummaryFragment;
-import com.zoomcar.prototype.fragments.DamagesQnAFragment;
-import com.zoomcar.prototype.fragments.InspectFragment;
-import com.zoomcar.prototype.interfaces.IOnCompleteClickListener;
-import com.zoomcar.prototype.interfaces.IOnDamageReportListener;
-import com.zoomcar.prototype.interfaces.IOnQuestionClickListener;
-import com.zoomcar.prototype.interfaces.IOnReportMoreClickListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements
-        IOnQuestionClickListener, IOnDamageReportListener, IOnCompleteClickListener, IOnReportMoreClickListener {
-    @BindView(R.id.toolbar_title)
-    TextView mToolbarTitle;
+public class MainActivity extends AppCompatActivity {
+
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.frame_fragment_host)
-    FrameLayout mFrameFragmentHost;
-
-    private FragmentManager mFragmentManager;
-
-    private Database mDatabase;
+    @BindView(R.id.button_front)
+    AppCompatButton mButtonFront;
+    @BindView(R.id.button_driver)
+    AppCompatButton mButtonDriver;
+    @BindView(R.id.button_passenger)
+    AppCompatButton mButtonPassenger;
+    @BindView(R.id.button_rear)
+    AppCompatButton mButtonRear;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
         setSupportActionBar(mToolbar);
-        mDatabase = Database.getInstance();
-        mFragmentManager = getSupportFragmentManager();
-
-        mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, InspectFragment.newInstance(3)).commitAllowingStateLoss();
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            supportActionBar.setTitle(getString(R.string.select_a_section));
+        }
     }
 
-    @Override
-    public void onClick(int sectionId, int questionId) {
-        mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, DamagesQnAFragment.newInstance(sectionId, questionId)).commitAllowingStateLoss();
+    @OnClick(R.id.button_front)
+    public void onFrontSectionClick() {
+        Intent intent = new Intent(this, CheckListActivity.class);
+        intent.putExtra(IntentUtil.SECTION_ID, 4);
+        startActivity(intent);
     }
 
-    @Override
-    public void onReportDamage() {
-        mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, DamageSummaryFragment.newInstance()).commitAllowingStateLoss();
+    @OnClick(R.id.button_rear)
+    public void onRearSectionClick() {
+        Intent intent = new Intent(this, CheckListActivity.class);
+        intent.putExtra(IntentUtil.SECTION_ID, 2);
+        startActivity(intent);
     }
 
-    @Override
-    public void onComplete() {
-
+    @OnClick(R.id.button_passenger)
+    public void onPassengerSectionClick() {
+        Intent intent = new Intent(this, CheckListActivity.class);
+        intent.putExtra(IntentUtil.SECTION_ID, 3);
+        startActivity(intent);
     }
 
-    @Override
-    public void onReportMore() {
-        mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, InspectFragment.newInstance(3)).commitAllowingStateLoss();
+    @OnClick(R.id.button_driver)
+    public void onDriverSectionClick() {
+        Intent intent = new Intent(this, CheckListActivity.class);
+        intent.putExtra(IntentUtil.SECTION_ID, 1);
+        startActivity(intent);
     }
 }

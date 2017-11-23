@@ -126,9 +126,9 @@ public class Database {
         mQuestionMap.put(28, question28);
 
         Section section1 = new Section(1, "Driver Side", new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9}, R.drawable.merged_driverside);
-        Section section2 = new Section(2, "Rear", new int[]{10, 11, 12, 13, 14}, R.drawable.merged_backside);
+        Section section2 = new Section(2, "Rear Side", new int[]{10, 11, 12, 13, 14}, R.drawable.merged_backside);
         Section section3 = new Section(3, "Passenger Side", new int[]{15, 16, 17, 18, 19, 20, 21, 22, 23}, R.drawable.merged_passengerside);
-        Section section4 = new Section(4, "Front", new int[]{24, 25, 26, 27, 28}, R.drawable.merged_frontside);
+        Section section4 = new Section(4, "Front Side", new int[]{24, 25, 26, 27, 28}, R.drawable.merged_frontside);
 
         mSectionMap.put(1, section1);
         mSectionMap.put(2, section2);

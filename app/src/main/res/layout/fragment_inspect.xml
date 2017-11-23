@@ -21,12 +21,12 @@
 
     <HorizontalScrollView
         android:id="@+id/horizontal_scroll_container"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="227dp"
         android:layout_marginTop="24dp"
-        android:paddingLeft="48dp"
-        android:paddingRight="48dp"
         android:clipToPadding="false"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -19,12 +19,14 @@ import android.widget.TextView;
 import com.zoomcar.prototype.Database;
 import com.zoomcar.prototype.IntentUtil;
 import com.zoomcar.prototype.R;
+import com.zoomcar.prototype.interfaces.IOnNoDamageClickListener;
 import com.zoomcar.prototype.interfaces.IOnQuestionClickListener;
 import com.zoomcar.prototype.model.Question;
 import com.zoomcar.prototype.model.Section;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -44,6 +46,7 @@ public class InspectFragment extends Fragment {
     AppCompatButton mButtonNoDamages;
     Unbinder unbinder;
 
+    private IOnNoDamageClickListener mNoDamageClickListener;
     private IOnQuestionClickListener mQuestionClickListener;
 
     private int tolerancePixels;
@@ -65,6 +68,10 @@ public class InspectFragment extends Fragment {
 
         if (context instanceof IOnQuestionClickListener) {
             mQuestionClickListener = (IOnQuestionClickListener) context;
+        }
+
+        if (context instanceof IOnNoDamageClickListener) {
+            mNoDamageClickListener = (IOnNoDamageClickListener) context;
         }
     }
 
@@ -93,6 +100,7 @@ public class InspectFragment extends Fragment {
 
         mTextInspectTitle.setText(getContext().getString(R.string.inspect_title, section.text));
         mHorizontalScrollImage.setImageResource(section.drawableId);
+        Log.i("density", String.valueOf(getResources().getDisplayMetrics().density));
 
         final GestureDetectorCompat mDetectorCompat = new GestureDetectorCompat(getContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
@@ -110,8 +118,8 @@ public class InspectFragment extends Fragment {
 
                 for (final int questionId : section.questionIds) {
                     final Question question = mDatabase.getQuestionMap().get(questionId);
-                    final float qx = (question.coordinates[0] + 12) * 2;
-                    final float qy = (question.coordinates[1] + 12) * 2;
+                    final float qx = (question.coordinates[0] + 12) * getResources().getDisplayMetrics().density;
+                    final float qy = (question.coordinates[1] + 12) * getResources().getDisplayMetrics().density;
 
                     Log.i("id", String.valueOf(question.id));
                     Log.i("question", String.valueOf(question.text));
@@ -135,6 +143,11 @@ public class InspectFragment extends Fragment {
                 return mDetectorCompat.onTouchEvent(motionEvent);
             }
         });
+    }
+
+    @OnClick(R.id.button_no_damages)
+    public void onNoDamageClick() {
+        mNoDamageClickListener.onNoDamageClick();
     }
 
     @Override
