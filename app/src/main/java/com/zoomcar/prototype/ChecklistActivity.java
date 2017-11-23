@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -16,16 +17,18 @@ import com.zoomcar.prototype.interfaces.IOnDamageReportListener;
 import com.zoomcar.prototype.interfaces.IOnNoDamageClickListener;
 import com.zoomcar.prototype.interfaces.IOnQuestionClickListener;
 import com.zoomcar.prototype.interfaces.IOnReportMoreClickListener;
+import com.zoomcar.prototype.interfaces.IOnTitleSetListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CheckListActivity extends AppCompatActivity implements
+public class ChecklistActivity extends AppCompatActivity implements
         IOnQuestionClickListener,
         IOnDamageReportListener,
         IOnCompleteClickListener,
         IOnReportMoreClickListener,
-        IOnNoDamageClickListener {
+        IOnNoDamageClickListener,
+        IOnTitleSetListener {
 
     @BindView(R.id.toolbar_title)
     TextView mToolbarTitle;
@@ -45,17 +48,26 @@ public class CheckListActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_checklist);
         ButterKnife.bind(this);
 
-        mSectionId = getIntent().getIntExtra(IntentUtil.SECTION_ID, -1);
+        mDatabase = Database.getInstance();
+        mFragmentManager = getSupportFragmentManager();
+
+        mSectionId = getIntent().getIntExtra(IntentUtil.SECTION_ID, 1);
 
         setSupportActionBar(mToolbar);
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
-            supportActionBar.setTitle(getString(R.string.checklist));
             supportActionBar.setDisplayHomeAsUpEnabled(true);
         }
-
-        mDatabase = Database.getInstance();
-        mFragmentManager = getSupportFragmentManager();
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mFragmentManager.getBackStackEntryCount() == 0) {
+                    finish();
+                } else {
+                    mFragmentManager.popBackStack();
+                }
+            }
+        });
 
         mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, InspectFragment.newInstance(mSectionId)).commitAllowingStateLoss();
     }
@@ -74,22 +86,33 @@ public class CheckListActivity extends AppCompatActivity implements
     @Override
     public void onReportDamage() {
         mFragmentManager.popBackStack();
+    }
+
+    @Override
+    public void onCompleteSegments() {
         mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, DamageSummaryFragment.newInstance()).addToBackStack(null).commitAllowingStateLoss();
     }
 
     @Override
-    public void onComplete() {
-
+    public void onFinalClick() {
+        finish();
     }
 
     @Override
     public void onReportMore() {
-        mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, InspectFragment.newInstance(mSectionId)).commitAllowingStateLoss();
+        mFragmentManager.popBackStack();
     }
 
     @Override
-    public void onNoDamageClick() {
-        finish();
+    public void onNoDamageClick(int nextSectionId) {
+        mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, InspectFragment.newInstance(nextSectionId)).addToBackStack(null).commitAllowingStateLoss();
+    }
+
+    @Override
+    public void setTitle(String title) {
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            supportActionBar.setTitle(title);
+        }
     }
 }

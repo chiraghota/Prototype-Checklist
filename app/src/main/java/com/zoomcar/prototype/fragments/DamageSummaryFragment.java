@@ -18,6 +18,7 @@ import com.zoomcar.prototype.Database;
 import com.zoomcar.prototype.R;
 import com.zoomcar.prototype.interfaces.IOnCompleteClickListener;
 import com.zoomcar.prototype.interfaces.IOnReportMoreClickListener;
+import com.zoomcar.prototype.interfaces.IOnTitleSetListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +41,7 @@ public class DamageSummaryFragment extends Fragment {
 
     private IOnCompleteClickListener mCompleteClickListener;
     private IOnReportMoreClickListener mReportMoreClickListener;
+    private IOnTitleSetListener mTitleSetListener;
 
     private Database mDatabase;
 
@@ -61,6 +63,10 @@ public class DamageSummaryFragment extends Fragment {
         if (context instanceof IOnReportMoreClickListener) {
             mReportMoreClickListener = (IOnReportMoreClickListener) context;
         }
+
+        if (context instanceof IOnTitleSetListener) {
+            mTitleSetListener = (IOnTitleSetListener) context;
+        }
     }
 
     @Nullable
@@ -74,6 +80,8 @@ public class DamageSummaryFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mTitleSetListener.setTitle("Damages Summary");
 
         mDatabase = Database.getInstance();
         mRecyclerDamageSummaryList.setNestedScrollingEnabled(false);
@@ -91,7 +99,7 @@ public class DamageSummaryFragment extends Fragment {
 
     @OnClick(R.id.button_submit)
     public void onSubmit() {
-        mCompleteClickListener.onComplete();
+        mCompleteClickListener.onFinalClick();
     }
 
     @Override

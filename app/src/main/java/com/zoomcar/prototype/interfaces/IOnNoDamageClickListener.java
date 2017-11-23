@@ -1,5 +1,5 @@
 package com.zoomcar.prototype.interfaces;
 
 public interface IOnNoDamageClickListener {
-    void onNoDamageClick();
+    void onNoDamageClick(int nextSectionId);
 }

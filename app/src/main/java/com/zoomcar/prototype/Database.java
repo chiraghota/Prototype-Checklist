@@ -70,7 +70,7 @@ public class Database {
         Question question1 = new Question(1, "Rear Quarter Panel", new float[]{73, 68}, 1);
         Question question2 = new Question(2, "Rear Tyre", new float[]{91, 161}, 2);
         Question question3 = new Question(3, "Rear Door", new float[]{202, 107}, 1);
-        Question question4 = new Question(4, "Rear Window", new float[]{106, 26}, 3);
+        Question question4 = new Question(4, "Rear Window", new float[]{186, 26}, 3);
         Question question5 = new Question(5, "Front Door", new float[]{346, 119}, 1);
         Question question6 = new Question(6, "Front Window", new float[]{346, 38}, 3);
         Question question7 = new Question(7, "Rear View Mirror", new float[]{423, 52}, 3);

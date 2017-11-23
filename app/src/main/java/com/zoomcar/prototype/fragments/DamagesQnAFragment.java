@@ -17,6 +17,7 @@ import com.zoomcar.prototype.Database;
 import com.zoomcar.prototype.IntentUtil;
 import com.zoomcar.prototype.R;
 import com.zoomcar.prototype.interfaces.IOnDamageReportListener;
+import com.zoomcar.prototype.interfaces.IOnTitleSetListener;
 import com.zoomcar.prototype.model.Answer;
 import com.zoomcar.prototype.model.AnswerGroup;
 import com.zoomcar.prototype.model.Damage;
@@ -42,6 +43,7 @@ public class DamagesQnAFragment extends Fragment implements View.OnClickListener
     Unbinder unbinder;
 
     private IOnDamageReportListener mReportListener;
+    private IOnTitleSetListener mTitleSetListener;
 
     private int mSectionId;
     private int mQuestionId;
@@ -77,6 +79,10 @@ public class DamagesQnAFragment extends Fragment implements View.OnClickListener
         if (context instanceof IOnDamageReportListener) {
             mReportListener = (IOnDamageReportListener) context;
         }
+
+        if (context instanceof IOnTitleSetListener) {
+            mTitleSetListener = (IOnTitleSetListener) context;
+        }
     }
 
     @Nullable
@@ -90,6 +96,8 @@ public class DamagesQnAFragment extends Fragment implements View.OnClickListener
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mTitleSetListener.setTitle("Damages");
 
         mButtonDone.setEnabled(false);
 
