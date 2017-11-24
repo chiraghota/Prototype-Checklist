@@ -22,12 +22,28 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/roboto_medium"
+                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Inspection the Driver side. Tap a car part to report damage." />
+                tools:text="Inspect the Driver side." />
+
+            <TextView
+                android:id="@+id/text_inspect_subtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_inspect_title"
+                android:text="@string/tap_car_part" />
 
             <HorizontalScrollView
                 android:id="@+id/horizontal_scroll_container"
@@ -42,7 +58,7 @@
                 android:scrollbars="none"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_inspect_title">
+                app:layout_constraintTop_toBottomOf="@+id/text_inspect_subtitle">
 
                 <ImageView
                     android:id="@+id/horizontal_scroll_image"

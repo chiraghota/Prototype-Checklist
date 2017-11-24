@@ -5,7 +5,9 @@
     <string name="done">Done</string>
     <string name="report_more_damages">Report more damages</string>
     <string name="submit_and_go"><![CDATA[Submit & Go]]></string>
-    <string name="inspect_title">Inspect the %1$s. Tap a car part to report damage.</string>
+    <string name="inspect_title">Inspect the %1$s.</string>
+    <string name="tap_car_part">Tap a car part to report damage.</string>
+    <string name="tap_car_part_additional">Tap a car part to report additional damage.</string>
     <string name="damage_title">Damage on %1$s %2$s</string>
     <string name="damage_title_without_section">Damage on %1$s</string>
     <string name="damage_qna_title">Select issues with the %1$s</string>
