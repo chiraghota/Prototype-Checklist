@@ -22,6 +22,9 @@
         <activity
             android:name=".ChecklistActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".SingleCheckListActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

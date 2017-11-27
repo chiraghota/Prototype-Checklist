@@ -13,26 +13,28 @@ import android.widget.TextView;
 import com.zoomcar.prototype.fragments.DamageSummaryFragment;
 import com.zoomcar.prototype.fragments.DamagesQnAFragment;
 import com.zoomcar.prototype.fragments.InspectFragment;
+import com.zoomcar.prototype.fragments.SelectSectionFragment;
 import com.zoomcar.prototype.interfaces.IOnCompleteClickListener;
 import com.zoomcar.prototype.interfaces.IOnContinueClickListener;
 import com.zoomcar.prototype.interfaces.IOnDamageReportListener;
 import com.zoomcar.prototype.interfaces.IOnFinishSectionsClickListener;
 import com.zoomcar.prototype.interfaces.IOnQuestionClickListener;
 import com.zoomcar.prototype.interfaces.IOnReportMoreClickListener;
+import com.zoomcar.prototype.interfaces.IOnSectionSelectListener;
 import com.zoomcar.prototype.interfaces.IOnTitleSetListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ChecklistActivity extends AppCompatActivity implements
-        IOnQuestionClickListener,
-        IOnDamageReportListener,
-        IOnCompleteClickListener,
+public class SingleCheckListActivity extends AppCompatActivity implements
         IOnReportMoreClickListener,
-        IOnContinueClickListener,
         IOnFinishSectionsClickListener,
-        IOnTitleSetListener {
-
+        IOnQuestionClickListener,
+        IOnContinueClickListener,
+        IOnCompleteClickListener,
+        IOnDamageReportListener,
+        IOnTitleSetListener,
+        IOnSectionSelectListener {
     @BindView(R.id.toolbar_title)
     TextView mToolbarTitle;
     @BindView(R.id.toolbar)
@@ -71,53 +73,12 @@ public class ChecklistActivity extends AppCompatActivity implements
             }
         });
 
-        mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, InspectFragment.newInstance(mSectionId)).commitAllowingStateLoss();
+        mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, SelectSectionFragment.newInstance()).commitAllowingStateLoss();
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
-    }
-
-    @Override
-    public void onClick(int sectionId, int questionId) {
-        mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, DamagesQnAFragment.newInstance(sectionId, questionId)).addToBackStack(null).commitAllowingStateLoss();
-    }
-
-    @Override
-    public void onReportDamage() {
-        mFragmentManager.popBackStack();
-    }
-
-    @Override
-    public void onCompleteSections() {
-        mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, DamageSummaryFragment.newInstance()).addToBackStack(null).commitAllowingStateLoss();
-    }
-
-    @Override
-    public void onFinalClick() {
-        finish();
-    }
-
-    @Override
-    public void onReportMore() {
-        Intent intent = new Intent(this, SingleCheckListActivity.class);
-        startActivityForResult(intent, 10);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == 10) {
-            if (data.getBooleanExtra(IntentUtil.SUBMIT, false)) finish();
-        }
-    }
-
-    @Override
-    public void onContinueClick(int nextSectionId) {
-        mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, InspectFragment.newInstance(nextSectionId)).addToBackStack(null).commitAllowingStateLoss();
+    public void onSelectSection(int sectionId) {
+        mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, InspectFragment.newInstance(sectionId)).addToBackStack(null).commitAllowingStateLoss();
     }
 
     @Override
@@ -126,5 +87,38 @@ public class ChecklistActivity extends AppCompatActivity implements
         if (supportActionBar != null) {
             supportActionBar.setTitle(title);
         }
+    }
+
+    @Override
+    public void onContinueClick(int nextSectionId) {
+        mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, DamageSummaryFragment.newInstance()).addToBackStack(null).commitAllowingStateLoss();
+    }
+
+    @Override
+    public void onClick(int sectionId, int questionId) {
+        mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, DamagesQnAFragment.newInstance(sectionId, questionId)).addToBackStack(null).commitAllowingStateLoss();
+    }
+
+    @Override
+    public void onCompleteSections() {
+        mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, DamageSummaryFragment.newInstance()).addToBackStack(null).commitAllowingStateLoss();
+    }
+
+    @Override
+    public void onReportMore() {
+        mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
+    @Override
+    public void onFinalClick() {
+        Intent intent = new Intent();
+        intent.putExtra(IntentUtil.SUBMIT, true);
+        setResult(10, intent);
+        finish();
+    }
+
+    @Override
+    public void onReportDamage() {
+        mFragmentManager.popBackStack();
     }
 }

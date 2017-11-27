@@ -13,10 +13,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zoomcar.prototype.DamageDecoration;
-import com.zoomcar.prototype.DamageListAdapter;
+import com.zoomcar.prototype.adapters.DamageAdapter;
+import com.zoomcar.prototype.adapters.SectionDamageAdapter;
 import com.zoomcar.prototype.Database;
 import com.zoomcar.prototype.R;
 import com.zoomcar.prototype.interfaces.IOnCompleteClickListener;
+import com.zoomcar.prototype.interfaces.IOnQuestionClickListener;
 import com.zoomcar.prototype.interfaces.IOnReportMoreClickListener;
 import com.zoomcar.prototype.interfaces.IOnTitleSetListener;
 
@@ -33,10 +35,6 @@ public class DamageSummaryFragment extends Fragment {
     TextView mTextSummaryTitle;
     @BindView(R.id.recycler_damage_summary_list)
     RecyclerView mRecyclerDamageSummaryList;
-    @BindView(R.id.button_report_more_damages)
-    AppCompatButton mButtonReportMoreDamages;
-    @BindView(R.id.button_submit)
-    AppCompatButton mButtonSubmit;
     Unbinder unbinder;
 
     private IOnCompleteClickListener mCompleteClickListener;
@@ -44,6 +42,7 @@ public class DamageSummaryFragment extends Fragment {
     private IOnTitleSetListener mTitleSetListener;
 
     private Database mDatabase;
+    private IOnQuestionClickListener mQuestionClickListener;
 
     public static Fragment newInstance() {
         Bundle args = new Bundle();
@@ -62,6 +61,10 @@ public class DamageSummaryFragment extends Fragment {
 
         if (context instanceof IOnReportMoreClickListener) {
             mReportMoreClickListener = (IOnReportMoreClickListener) context;
+        }
+
+        if (context instanceof IOnQuestionClickListener) {
+            mQuestionClickListener = (IOnQuestionClickListener) context;
         }
 
         if (context instanceof IOnTitleSetListener) {
@@ -88,18 +91,8 @@ public class DamageSummaryFragment extends Fragment {
         mRecyclerDamageSummaryList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerDamageSummaryList.addItemDecoration(new DamageDecoration(getActivity(), R.dimen.medium_spacing));
 
-        DamageListAdapter damageListAdapter = new DamageListAdapter(getContext());
-        mRecyclerDamageSummaryList.setAdapter(damageListAdapter);
-    }
-
-    @OnClick(R.id.button_report_more_damages)
-    public void onReportMore() {
-        mReportMoreClickListener.onReportMore();
-    }
-
-    @OnClick(R.id.button_submit)
-    public void onSubmit() {
-        mCompleteClickListener.onFinalClick();
+        DamageAdapter sectionDamageAdapter = new DamageAdapter(getContext(), mQuestionClickListener, mCompleteClickListener, mReportMoreClickListener);
+        mRecyclerDamageSummaryList.setAdapter(sectionDamageAdapter);
     }
 
     @Override

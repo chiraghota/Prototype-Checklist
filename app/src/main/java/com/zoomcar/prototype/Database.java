@@ -17,13 +17,13 @@ import java.util.Map;
 public class Database {
     private static Database sBuilder;
 
-    // Map of sections, has value (id, Section)
     private Map<Integer, Section> mSectionMap;
     private Map<Integer, Question> mQuestionMap;
     private Map<Integer, AnswerGroup> mAnswerGroupMap;
     private Map<Integer, Answer> mAnswerMap;
 
-    // Store all the list of damages
+    private Map<Integer, Damage> mQuestionToDamageMap;
+
     private ArrayList<Damage> mDamages;
 
     public static Database getInstance() {
@@ -40,15 +40,18 @@ public class Database {
         mQuestionMap = new HashMap<>();
         mAnswerGroupMap = new HashMap<>();
         mAnswerMap = new HashMap<>();
+        mQuestionToDamageMap = new HashMap<>();
+
         mDamages = new ArrayList<>();
 
         Answer answer1 = new Answer(1, "No Damage");
         Answer answer2 = new Answer(2, "Single Scratch");
         Answer answer3 = new Answer(3, "Multiple Scratches");
-        Answer answer4 = new Answer(4, "Major Damages");
-        Answer answer5 = new Answer(5, "Minor Damage");
-        Answer answer6 = new Answer(6, "Severe Damage");
-        Answer answer7 = new Answer(7, "Damaged");
+        Answer answer4 = new Answer(4, "Dents");
+        Answer answer5 = new Answer(5, "Severe Damages");
+        Answer answer6 = new Answer(6, "Partially worn out");
+        Answer answer7 = new Answer(7, "Major cuts, Flat tyre");
+        Answer answer8 = new Answer(8, "Damaged");
 
         mAnswerMap.put(1, answer1);
         mAnswerMap.put(1, answer1);
@@ -58,10 +61,11 @@ public class Database {
         mAnswerMap.put(5, answer5);
         mAnswerMap.put(6, answer6);
         mAnswerMap.put(7, answer7);
+        mAnswerMap.put(8, answer8);
 
         AnswerGroup answerGroup1 = new AnswerGroup(1, "Type 1", new int[]{1, 2, 3, 4, 5});
-        AnswerGroup answerGroup2 = new AnswerGroup(2, "Type 2", new int[]{1, 5, 6});
-        AnswerGroup answerGroup3 = new AnswerGroup(3, "Type 3", new int[]{1, 7});
+        AnswerGroup answerGroup2 = new AnswerGroup(2, "Type 2", new int[]{1, 6, 7});
+        AnswerGroup answerGroup3 = new AnswerGroup(3, "Type 3", new int[]{1, 8});
 
         mAnswerGroupMap.put(1, answerGroup1);
         mAnswerGroupMap.put(2, answerGroup2);
@@ -125,10 +129,10 @@ public class Database {
         mQuestionMap.put(27, question27);
         mQuestionMap.put(28, question28);
 
-        Section section1 = new Section(1, "Driver Side", new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9}, R.drawable.merged_driverside);
-        Section section2 = new Section(2, "Rear Side", new int[]{10, 11, 12, 13, 14}, R.drawable.merged_backside);
-        Section section3 = new Section(3, "Passenger Side", new int[]{15, 16, 17, 18, 19, 20, 21, 22, 23}, R.drawable.merged_passengerside);
-        Section section4 = new Section(4, "Front Side", new int[]{24, 25, 26, 27, 28}, R.drawable.merged_frontside);
+        Section section1 = new Section(1, "Rear", new int[]{10, 11, 12, 13, 14}, R.drawable.merged_backside);
+        Section section2 = new Section(2, "Passenger Side", new int[]{15, 16, 17, 18, 19, 20, 21, 22, 23}, R.drawable.merged_passengerside);
+        Section section3 = new Section(3, "Front", new int[]{24, 25, 26, 27, 28}, R.drawable.merged_frontside);
+        Section section4 = new Section(4, "Driver Side", new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9}, R.drawable.merged_driverside);
 
         mSectionMap.put(1, section1);
         mSectionMap.put(2, section2);
@@ -154,5 +158,31 @@ public class Database {
 
     public ArrayList<Damage> getDamages() {
         return mDamages;
+    }
+
+    public Map<Integer, Damage> getQuestionToDamageMap() {
+        return mQuestionToDamageMap;
+    }
+
+    public void addDamage(int index, Damage damage) {
+        mDamages.add(index, damage);
+
+        mQuestionToDamageMap.put(damage.questionId, damage);
+    }
+
+    public void removeDamage(final int questionId) {
+        int index = 0;
+        boolean found = false;
+        for (Damage d : mDamages) {
+            if (d.questionId == questionId) {
+                found = true;
+                break;
+            }
+
+            index++;
+        }
+
+        if (found) mDamages.remove(index);
+        mQuestionToDamageMap.remove(questionId);
     }
 }

@@ -4,12 +4,13 @@
     <string name="no_damages">No Damages</string>
     <string name="done">Done</string>
     <string name="report_more_damages">Report more damages</string>
+    <string name="report_damages">Report damages</string>
     <string name="submit_and_go"><![CDATA[Submit & Go]]></string>
     <string name="inspect_title">Inspect the %1$s.</string>
     <string name="tap_car_part">Tap a car part to report damage.</string>
     <string name="tap_car_part_additional">Tap a car part to report additional damage.</string>
-    <string name="damage_title">Damage on %1$s %2$s</string>
-    <string name="damage_title_without_section">Damage on %1$s</string>
+    <string name="damage_title">%1$s %2$s</string>
+    <string name="damage_title_without_section">%1$s</string>
     <string name="damage_qna_title">Select issues with the %1$s</string>
     <string name="confirm_the_damages">Confirm the damages to avoid unwanted charges</string>
     <string name="front_section">Front Section</string>
@@ -21,4 +22,12 @@
     <string name="next">Next</string>
     <string name="option_first">Start 1</string>
     <string name="option_second">Start 2</string>
+    <string name="section_rear">Rear side</string>
+    <string name="section_passenger">Passenger side</string>
+    <string name="section_front">Front side</string>
+    <string name="section_driver">Driver side</string>
+    <string name="text_continue">Continue</string>
+    <string name="new_reported_damages">New reported damages</string>
+    <string name="existing_reported_damages">Identified damages</string>
+    <string name="agreement_no_damages">There are no damages on the car I would like to report</string>
 </resources>

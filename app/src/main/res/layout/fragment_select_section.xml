@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/button_option_rear"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:paddingBottom="24dp"
+        android:paddingTop="24dp"
+        android:text="@string/section_rear"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:backgroundTint="@color/zoom_green"
+        app:layout_constraintEnd_toStartOf="@+id/button_option_passenger"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/button_option_passenger"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:paddingBottom="24dp"
+        android:paddingTop="24dp"
+        android:text="@string/section_passenger"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:backgroundTint="@color/zoom_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_option_rear"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/button_option_front"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:paddingBottom="24dp"
+        android:paddingTop="24dp"
+        android:text="@string/section_front"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:backgroundTint="@color/zoom_green"
+        app:layout_constraintEnd_toStartOf="@+id/button_option_driver"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_option_rear" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/button_option_driver"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:paddingBottom="24dp"
+        android:paddingTop="24dp"
+        android:text="@string/section_driver"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:backgroundTint="@color/zoom_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_option_front"
+        app:layout_constraintTop_toBottomOf="@id/button_option_rear" />
+
+</android.support.constraint.ConstraintLayout>

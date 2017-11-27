@@ -22,8 +22,6 @@ import com.zoomcar.prototype.model.Answer;
 import com.zoomcar.prototype.model.AnswerGroup;
 import com.zoomcar.prototype.model.Damage;
 
-import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -105,6 +103,8 @@ public class DamagesQnAFragment extends Fragment implements View.OnClickListener
         final AnswerGroup answerGroup = mDatabase.getAnswerGroupMap().get(mAnswerGroupId);
         mTextQuestion.setText(getContext().getResources().getString(R.string.damage_qna_title, mDatabase.getQuestionMap().get(mQuestionId).text));
 
+        mSelectedAnswerId = mDatabase.getQuestionToDamageMap().containsKey(mQuestionId) ? mDatabase.getQuestionToDamageMap().get(mQuestionId).answerId : 1;
+
         LayoutInflater inflater = LayoutInflater.from(getContext());
         for (int answerId : answerGroup.answerIds) {
             final Answer answer = mDatabase.getAnswerMap().get(answerId);
@@ -113,6 +113,10 @@ public class DamagesQnAFragment extends Fragment implements View.OnClickListener
             mRadioGroupQuestionsContainer.addView(answerRadio);
             answerRadio.setTag(answerId);
             answerRadio.setOnClickListener(this);
+
+            if (answerId == mSelectedAnswerId) {
+                answerRadio.performClick();
+            }
         }
 
         Log.i("answerGroupId", String.valueOf(mAnswerGroupId));
@@ -120,26 +124,15 @@ public class DamagesQnAFragment extends Fragment implements View.OnClickListener
 
     @OnClick(R.id.button_done)
     public void onButtonClick() {
-        final ArrayList<Damage> allDamages = mDatabase.getDamages();
-
-        if (allDamages.size() > 0) {
-            int index = 0;
-            boolean remove = false;
-            for (Damage damage : allDamages) {
-                if (damage.sectionId == mSectionId
-                        && damage.questionId == mQuestionId
-                        && damage.answerGroupId == mAnswerGroupId) {
-                    remove = true;
-                    break;
-                }
-
-                index++;
+        final int oldAnswer = mDatabase.getQuestionToDamageMap().containsKey(mQuestionId) ? mDatabase.getQuestionToDamageMap().get(mQuestionId).answerId : -1;
+        Log.i("questionId", String.valueOf(mQuestionId));
+        if (mSelectedAnswerId != oldAnswer) {
+            mDatabase.removeDamage(mQuestionId);
+            if (mSelectedAnswerId != 1) {
+                mDatabase.addDamage(0, new Damage(mSectionId, mQuestionId, mAnswerGroupId, mSelectedAnswerId));
             }
-
-            if (remove) allDamages.remove(index);
         }
 
-        mDatabase.getDamages().add(new Damage(mSectionId, mQuestionId, mAnswerGroupId, mSelectedAnswerId));
         mReportListener.onReportDamage();
     }
 

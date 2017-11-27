@@ -26,12 +26,12 @@
                 android:id="@+id/text_summary_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
                 android:layout_marginLeft="32dp"
                 android:layout_marginRight="32dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="12dp"
                 android:text="@string/confirm_the_damages"
                 android:textAlignment="center"
-                android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -40,39 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button_report_more_damages"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="64dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="6dp"
-                android:paddingBottom="16dp"
-                android:paddingLeft="58dp"
-                android:paddingRight="58dp"
-                android:paddingTop="16dp"
-                android:text="@string/report_more_damages"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                app:backgroundTint="@color/zoom_red" />
-
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
-
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/button_submit"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/zoom_green"
-        android:text="@string/submit_and_go"
-        android:textColor="@color/white"
-        app:backgroundTint="@color/zoom_green"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
