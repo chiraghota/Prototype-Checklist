@@ -42,9 +42,7 @@ public class SingleCheckListActivity extends AppCompatActivity implements
     @BindView(R.id.frame_fragment_host)
     FrameLayout mFrameFragmentHost;
 
-    FragmentManager mFragmentManager;
-    Database mDatabase;
-    int mSectionId;
+    private FragmentManager mFragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +50,7 @@ public class SingleCheckListActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_host);
         ButterKnife.bind(this);
 
-        mDatabase = Database.getInstance();
         mFragmentManager = getSupportFragmentManager();
-
-        mSectionId = getIntent().getIntExtra(IntentUtil.SECTION_ID, 1);
 
         setSupportActionBar(mToolbar);
         ActionBar supportActionBar = getSupportActionBar();
@@ -95,7 +90,7 @@ public class SingleCheckListActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onClick(int sectionId, int questionId) {
+    public void onClickQuestion(int sectionId, int questionId) {
         mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, DamagesQnAFragment.newInstance(sectionId, questionId)).addToBackStack(null).commitAllowingStateLoss();
     }
 

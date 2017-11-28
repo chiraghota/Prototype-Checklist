@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,9 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.zoomcar.prototype.DamageDecoration;
+import com.zoomcar.prototype.decorations.DamageDecoration;
 import com.zoomcar.prototype.adapters.DamageAdapter;
-import com.zoomcar.prototype.adapters.SectionDamageAdapter;
 import com.zoomcar.prototype.Database;
 import com.zoomcar.prototype.R;
 import com.zoomcar.prototype.interfaces.IOnCompleteClickListener;
@@ -24,7 +22,6 @@ import com.zoomcar.prototype.interfaces.IOnTitleSetListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -40,8 +37,6 @@ public class DamageSummaryFragment extends Fragment {
     private IOnCompleteClickListener mCompleteClickListener;
     private IOnReportMoreClickListener mReportMoreClickListener;
     private IOnTitleSetListener mTitleSetListener;
-
-    private Database mDatabase;
     private IOnQuestionClickListener mQuestionClickListener;
 
     public static Fragment newInstance() {
@@ -86,7 +81,6 @@ public class DamageSummaryFragment extends Fragment {
 
         mTitleSetListener.setTitle("Damages Summary");
 
-        mDatabase = Database.getInstance();
         mRecyclerDamageSummaryList.setNestedScrollingEnabled(false);
         mRecyclerDamageSummaryList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerDamageSummaryList.addItemDecoration(new DamageDecoration(getActivity(), R.dimen.medium_spacing));

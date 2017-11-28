@@ -1,5 +1,5 @@
 package com.zoomcar.prototype.interfaces;
 
 public interface IOnQuestionClickListener {
-    void onClick(int sectionId, int questionId);
+    void onClickQuestion(int sectionId, int questionId);
 }

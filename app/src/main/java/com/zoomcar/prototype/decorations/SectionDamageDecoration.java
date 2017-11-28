@@ -1,4 +1,4 @@
-package com.zoomcar.prototype;
+package com.zoomcar.prototype.decorations;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.zoomcar.prototype.R;
 import com.zoomcar.prototype.adapters.SectionDamageAdapter;
 
 /**

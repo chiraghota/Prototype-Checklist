@@ -1,4 +1,4 @@
-package com.zoomcar.prototype;
+package com.zoomcar.prototype.decorations;
 
 import android.content.Context;
 import android.graphics.Rect;

@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.zoomcar.prototype.Database;
 import com.zoomcar.prototype.IntentUtil;
 import com.zoomcar.prototype.R;
-import com.zoomcar.prototype.SectionDamageDecoration;
+import com.zoomcar.prototype.decorations.SectionDamageDecoration;
 import com.zoomcar.prototype.SectionImageView;
 import com.zoomcar.prototype.adapters.SectionDamageAdapter;
 import com.zoomcar.prototype.interfaces.IOnContinueClickListener;
@@ -61,6 +61,7 @@ public class InspectFragment extends Fragment implements IOnContinueClickListene
 
     private int tolerancePixels;
     private int mSectionId;
+
     private Database mDatabase;
 
     public static Fragment newInstance(int sectionId) {
@@ -163,7 +164,7 @@ public class InspectFragment extends Fragment implements IOnContinueClickListene
 
                     if (Math.abs(x - qx) <= tolerancePixels && Math.abs(y - qy) <= tolerancePixels) {
                         // Found the question
-                        mQuestionClickListener.onClick(mSectionId, questionId);
+                        mQuestionClickListener.onClickQuestion(mSectionId, questionId);
                         break;
                     }
                 }

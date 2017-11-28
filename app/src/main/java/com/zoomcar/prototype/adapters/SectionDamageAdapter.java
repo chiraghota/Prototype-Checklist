@@ -36,12 +36,15 @@ public class SectionDamageAdapter extends RecyclerView.Adapter<SectionDamageAdap
     private static final int ITEM_CONTINUE = 2;
 
     private final Context mContext;
-    private final Database mDatabase;
-    private final ArrayList<Damage> mDamages;
-    private final int mSectionId;
+
     private final IOnContinueClickListener mContinueClickListener;
     private final IOnQuestionClickListener mQuestionClickListener;
     private final IOnDamageRemovedListener mDamageRemovedListener;
+
+    private final Database mDatabase;
+    private final ArrayList<Damage> mDamages;
+
+    private final int mSectionId;
 
     private int mNewDamagesCount;
     private int mOldDamagesCount;
@@ -215,7 +218,7 @@ public class SectionDamageAdapter extends RecyclerView.Adapter<SectionDamageAdap
         @OnClick(R.id.damage_summary_container)
         void onDamageClick() {
             if (mQuestionClickListener != null) {
-                mQuestionClickListener.onClick(mSectionId, (int) itemView.getTag());
+                mQuestionClickListener.onClickQuestion(mSectionId, (int) itemView.getTag());
             }
         }
 

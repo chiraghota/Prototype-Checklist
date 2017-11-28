@@ -166,7 +166,6 @@ public class Database {
 
     public void addDamage(int index, Damage damage) {
         mDamages.add(index, damage);
-
         mQuestionToDamageMap.put(damage.questionId, damage);
     }
 

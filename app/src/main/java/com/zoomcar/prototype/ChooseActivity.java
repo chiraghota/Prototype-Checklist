@@ -12,10 +12,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by arunlakra on 24/11/17.
- */
-
 public class ChooseActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;

@@ -40,9 +40,7 @@ public class ChecklistActivity extends AppCompatActivity implements
     @BindView(R.id.frame_fragment_host)
     FrameLayout mFrameFragmentHost;
 
-    FragmentManager mFragmentManager;
-    Database mDatabase;
-    int mSectionId;
+    private FragmentManager mFragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +48,9 @@ public class ChecklistActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_host);
         ButterKnife.bind(this);
 
-        mDatabase = Database.getInstance();
         mFragmentManager = getSupportFragmentManager();
 
-        mSectionId = getIntent().getIntExtra(IntentUtil.SECTION_ID, 1);
+        final int sectionId = getIntent().getIntExtra(IntentUtil.SECTION_ID, 1);
 
         setSupportActionBar(mToolbar);
         ActionBar supportActionBar = getSupportActionBar();
@@ -71,17 +68,11 @@ public class ChecklistActivity extends AppCompatActivity implements
             }
         });
 
-        mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, InspectFragment.newInstance(mSectionId)).commitAllowingStateLoss();
+        mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, InspectFragment.newInstance(sectionId)).commitAllowingStateLoss();
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
-    }
-
-    @Override
-    public void onClick(int sectionId, int questionId) {
+    public void onClickQuestion(int sectionId, int questionId) {
         mFragmentManager.beginTransaction().replace(R.id.frame_fragment_host, DamagesQnAFragment.newInstance(sectionId, questionId)).addToBackStack(null).commitAllowingStateLoss();
     }
 

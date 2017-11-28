@@ -199,7 +199,7 @@ public class DamageAdapter extends RecyclerView.Adapter<DamageAdapter.ViewHolder
         @OnClick(R.id.damage_summary_container)
         void onDamageClick() {
             if (mQuestionClickListener != null) {
-                mQuestionClickListener.onClick(mDamage.sectionId, mDamage.questionId);
+                mQuestionClickListener.onClickQuestion(mDamage.sectionId, mDamage.questionId);
             }
         }
 
